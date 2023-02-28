@@ -1,45 +1,39 @@
 <template>
-    <div>
-    
+  <div>
     <div class="container">
       <div class="mainContainer">
         <div>
           <span id="userSpan">Usuários</span>
-          <button id="newUser" @click="$router.push('/newUser')"> <buttonComponentText buttonText="Novo usuário"/> </button>
-        </div>
-        
-        <div class="cards">
-          <div class="userCard" v-for="user in users" :key="user.id">
-          
-            <img :src="(user.avatar)" :alt="user.first_name"/>
-            <div>
-              <span>#{{ user.id }} </span> 
-              <br>
-             <span id="fullName">{{ user.first_name}} {{ user.last_name }}</span> 
-             <br>
-             <span>{{ user.email }}</span> 
-             <div v-if="user.showDiv" v-for="userDetails in users" :key="userDetails.id">
-              <span>#{{ userDetails.id }} </span> 
-            </div>
-            </div>
-            <div class="icons">
-              <img @click="teste"  src="../assets/icons/edit.png" alt="edit"/> 
-              <img @click="teste"  src="../assets/icons/delete.png" alt="delete"/> 
-              <img @click="toggleDivVisibility(user)"  src="../assets/icons/moreDetails.png" alt="more details"/>
-              
-            </div>
-              
-             
-          
-        </div>
+          <button id="newUser" @click="$router.push('/newUser')">
+            <buttonComponentText buttonText="Novo usuário" />
+          </button>
         </div>
 
-        
-         
+        <div class="cards">
+          <div class="userCard" v-for="user in users" :key="user.id">
+            <img :src="(user.avatar)" :alt="user.first_name" />
+            <div>
+              <span>#{{ user.id }} </span>
+              <br>
+              <span id="fullName">{{ user.first_name }} {{ user.last_name }}</span>
+              <br>
+              <span>{{ user.email }}</span>
+              <div v-if="user.id === selectedUserId">
+                <span>#{{ user.id }} </span>
+                <img :src="(user.avatar)" :alt="user.first_name" />
+              </div>
+            </div>
+            <div class="icons">
+              <img @click="teste" src="../assets/icons/edit.png" alt="edit" />
+              <img @click="teste" src="../assets/icons/delete.png" alt="delete" />
+              <img @click="divVisibility(user)" src="../assets/icons/moreDetails.png" alt="more details" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-</div>
-  </template>
+  </div>
+</template>
   
   <script>
   import axios from 'axios';
@@ -48,8 +42,7 @@
     data() {
       return {
         users: [],
-        isVisible : false,
-        selectedUser: null,
+        selectedUserId: null,
       }
     },
     mounted() {
@@ -69,10 +62,15 @@
       teste(){
         alert('teste');
       },
-      toggleDivVisibility(user) {
-      user.showDiv = !user.showDiv;
+      divVisibility(user) {
+      if (this.selectedUserId === user.id) {
+        this.selectedUserId = null;
+      } else {
+        this.selectedUserId = user.id;
+      }
     },
-    }
+  },
+    
     
 
 

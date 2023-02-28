@@ -1,5 +1,5 @@
 <template>
-<button id="saveData">Salvar dados do usuário</button>
+<button id="saveData" type="submit">Salvar dados do usuário</button>
 </template>
 
 

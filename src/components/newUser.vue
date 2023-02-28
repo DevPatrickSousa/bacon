@@ -8,24 +8,7 @@
         <button id="cancel" @click="$router.push('/')"> <buttonComponentText buttonText="Cancelar"/> </button>
       </div>
 
-      <div id="userData">
-          <form action="">
-            <label class="labelUser">Nome do usuário
-            <input type="text">
-            </label>
-            <label class="labelUser">Função do usuário
-              <select>
-                <option selected="selected" disabled>Selecione a função</option>
-                <option v-for="option in options" v-bind:value="option.value">
-                  {{ option.text }}
-                </option>
-              </select>
-            </label>
-             <buttonComponent/> 
-
-          </form>
-        </div>
-
+      <formComponent/>
 
       <div class="cards">
        
@@ -62,14 +45,7 @@ export default {
   data() {
     return {
       users: [],
-      options:[
-        {text: 'Desenvolvedor', value: 'A'},
-        {text: 'Gerente de Projetos', value: 'B'},
-        {text: 'Tech Lead', value: 'C'},
-        {text: 'UI/UX Designer', value: 'D'},
-      ],
-      
-    };
+    }
   },
   mounted() {
     axios.get('https://reqres.in/api/users')
@@ -93,7 +69,7 @@ export default {
 <script setup>
  import buttonComponentText from './buttonComponentText.vue'
  import buttonComponent from './buttonComponent.vue'
-
+import formComponent from './formComponent.vue'
 </script>
 
 
