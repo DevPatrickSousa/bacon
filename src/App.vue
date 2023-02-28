@@ -20,4 +20,9 @@
 nav a{
   text-decoration: none;
 }
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"),
+   url(./assets/fonts/Montserrat-VariableFont_wght.ttf) format("truetype");
+}
 </style>
