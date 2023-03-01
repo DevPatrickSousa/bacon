@@ -69,6 +69,7 @@ select{
   width: 584px;
   height: 55px;
   border-width: 0;
+  border: 1px solid #E5E5E5
 }
 input {
   display: block;
@@ -78,6 +79,10 @@ input {
   border-radius: 5px;
   border-width: 0;
   margin-bottom: 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  border: 1px solid #E5E5E5
 }
 #userData{
 width: 584px;

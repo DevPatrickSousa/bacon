@@ -93,15 +93,14 @@ export default {
 .container {
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    border: 0;
     justify-content: center;
     align-items: center;
     font-family: 'Montserrat', sans-serif;
     
   }
 .mainContainer{
-
-  border: 1px solid black;
+  border: 0;
   width: 616px;
   min-height: 400px;
   

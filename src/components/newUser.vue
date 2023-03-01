@@ -7,7 +7,7 @@
         <span id="userSpanText">Usuários</span>
         <div class="button-container">
           <router-link to="/">
-          <buttonComponent buttonText="Cancelar" />
+          <buttonComponent buttonText="Cancelar" buttonColor="#F7F7F7" />
           </router-link>
         </div>
       </div>
@@ -20,14 +20,14 @@
        
         <div class="card" v-for="user in users" :key="user.id">
           <div class="userCardInformations">
-            <div class="black"></div>
+            
           <img :src="(user.avatar)" :alt="user.first_name">
-          <div>
-            <span>#{{ user.id }}</span> 
+          <div class="userInformation">
+            <span id="userId">#{{ user.id }}</span> 
              <br>
              <span id="fullName">{{ user.first_name}} {{ user.last_name }}</span> 
              <br>
-             <span>{{ user.email }}</span> 
+             <span id="email">{{ user.email }}</span> 
           </div>
           <div class="icons">
             <img @click="editUser(user.id)" src="../assets/icons/edit.png" alt="edit"/> 
@@ -79,7 +79,7 @@ export default {
     axios.delete(`https://reqres.in/api/users/${id}`)
     .then(response => {
       console.log(response);
-      alert('usuário deletado com sucesso!');
+      alert(`Usuário ${id} deletado com sucesso!`);
     })
     .catch(error => {
       console.log(error);
@@ -126,15 +126,18 @@ input {
   display: flex;
   flex-direction: row;
   height: 100vh;
-  border: 1px solid black;
+  border: 0;
 }
 .mainContainer{
-border: 1px solid black;
+border: 0;
 width: 592px;
 height: 937px;
 }
 #userSpanText{
-font-size: 50px;
+  font-size: 50px;
+  margin-bottom: 40px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
 
 }
 
@@ -150,18 +153,20 @@ overflow: scroll;
 .userCardInformations{
   display: flex;
   max-height: 100%;
-  width: 588px;
-  height: 120px;
+  width: 528px;
+  height: 80px;
   list-style: none;
   font-family: 'Montserrat', sans-serif;
-  padding: 20px 30px 20px 30px;
+  margin: 20px 30px 20px 30px;
   
 }
 .card img{
 height: 80px;
 width: 80px;
 }
-
+.card{
+  background-color: #F7F7F7;
+}
 
 .icons {
   display: flex;

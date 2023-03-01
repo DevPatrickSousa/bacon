@@ -25,5 +25,6 @@
     margin-left: auto; /* centralizar o botão na tela */
     margin-right: auto;
     display: block; /* tornar o botão um elemento de bloco para centralizar */
+    font-size: 15px;
     }
     </style>
