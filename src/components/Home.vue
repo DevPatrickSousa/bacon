@@ -2,33 +2,36 @@
   <div>
     <div class="container">
       <div class="mainContainer">
-        <div>
+        <div class="top">
           <span id="userSpan">Usuários</span>
-          <button id="newUser" @click="$router.push('/newUser')">
-            <buttonComponentText buttonText="Novo usuário" />
-          </button>
+          <div class="button-container">
+            <router-link to="/newUser">
+            <buttonComponent buttonText="Novo usuário" buttonColor="#000000" textColor="#FFFF"/>
+          </router-link>
+        </div>
         </div>
 
         <div class="cards">
           <div class="userCard" v-for="user in users" :key="user.id">
-            <img :src="(user.avatar)" :alt="user.first_name" />
+            
+            <div class="userCardInformations">
+              <div class="black"></div>
+            <img :src="(user.avatar)" :alt="user.first_name" id="cardImg"/>
             <div>
               <span>#{{ user.id }} </span>
               <br>
               <span id="fullName">{{ user.first_name }} {{ user.last_name }}</span>
               <br>
               <span>{{ user.email }}</span>
-              <div v-if="user.id === selectedUserId">
-                <span>#{{ user.id }} </span>
-                <img :src="(user.avatar)" :alt="user.first_name" />
-              </div>
             </div>
             <div class="icons">
-              <img @click="teste" src="../assets/icons/edit.png" alt="edit" />
-              <img @click="teste" src="../assets/icons/delete.png" alt="delete" />
-              <img @click="divVisibility(user)" src="../assets/icons/moreDetails.png" alt="more details" />
+              <img @click="$router.push('/newUser')" src="../assets/icons/edit.png" alt="edit" />
+              <img @click="deleteUser(user.id)" src="../assets/icons/delete.png" alt="delete" />
+              <img @click="$router.push('/user/' + user.id)" src="../assets/icons/moreDetails.png" alt="more details" />
+              
             </div>
           </div>
+        </div>
         </div>
       </div>
     </div>
@@ -37,55 +40,57 @@
   
   <script>
   import axios from 'axios';
-  
+  import buttonComponent from './buttonComponent.vue'
   export default {
     data() {
       return {
         users: [],
-        selectedUserId: null,
+        support:[],
+        
+        
       }
     },
     mounted() {
       axios.get('https://reqres.in/api/users')
       .then(response => {
-        this.users = response.data.data.map(user => ({
-          ...user,
-          showDiv: false,
-        }));
+        this.users = response.data.data;
+        this.support = response.data.support;
         console.log(this.users)
+        console.log(this.support)
       })
       .catch(error => {
         console.log(error);
       });
     },
     methods:{
-      teste(){
-        alert('teste');
-      },
-      divVisibility(user) {
-      if (this.selectedUserId === user.id) {
-        this.selectedUserId = null;
-      } else {
-        this.selectedUserId = user.id;
-      }
+    editUser(id){
+      alert(`Edit user ${id}`);
     },
+    deleteUser(id) {
+    axios.delete(`https://reqres.in/api/users/${id}`)
+    .then(response => {
+      console.log(response);
+      alert('usuário deletado com sucesso!');
+    })
+    .catch(error => {
+      console.log(error);
+      alert("erro!");
+    });
+},
   },
-    
-    
-
-
+  components:{
+    buttonComponent
+  }
   };
   </script>
   
   
-  <script setup>
-  import buttonComponentText from './buttonComponentText.vue'
-  </script>
+ 
   
   
 
   
-  <style>
+  <style >
  
 
 .container {
@@ -106,6 +111,8 @@
 
 #userSpan{
   font-size: 50px;
+  margin-left: 4px;
+  margin-bottom: 40px
 }
 button#newUser{
   height: 55px;
@@ -121,16 +128,7 @@ button#newUser{
   flex-direction: column;
   
 }
-.userCard{
-  display: flex;
-  max-height: 100%;
-  min-width: 586px;
-  height: 120px;
-  margin-left: 4px;
-  list-style: none;
-  font-family: 'Montserrat', sans-serif;
-  overflow: scroll;
-}
+
 .cards img{
   height: 80px;
   width: 80px;
@@ -151,6 +149,30 @@ button#newUser{
   flex-direction: row;
   justify-content: space-between;
   margin-left: auto;
+  gap: 17px;
+}
+.top{
+display: flex;
+flex-direction: row; 
+justify-content: space-between;
+}
+.black{
+  width: 4px;
+  height: 20px;
+  background-color: black;
+}
+.userCardInformations{
+  display: flex;
+  max-height: 100%;
+  width: 588px;
+  height: 120px;
+  list-style: none;
+  font-family: 'Montserrat', sans-serif;
+  padding: 20px 30px 20px 30px;
+ 
+}
+a{
+  text-decoration: none;
 }
 
   </style>

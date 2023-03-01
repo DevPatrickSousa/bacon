@@ -4,15 +4,23 @@
   <div class="container">
     <div class="mainContainer">
       <div class="top">
-        <span id="userSpan">Usuários</span>
-        <button id="cancel" @click="$router.push('/')"> <buttonComponentText buttonText="Cancelar"/> </button>
+        <span id="userSpanText">Usuários</span>
+        <div class="button-container">
+          <router-link to="/">
+          <buttonComponent buttonText="Cancelar" />
+          </router-link>
+        </div>
       </div>
 
-      <formComponent/>
+
+      <formComponentPost v-if="editingUserId === null" />
+      <formComponentPut v-if="editingUserId !== null" :userId="editingUserId" />
 
       <div class="cards">
        
         <div class="card" v-for="user in users" :key="user.id">
+          <div class="userCardInformations">
+            <div class="black"></div>
           <img :src="(user.avatar)" :alt="user.first_name">
           <div>
             <span>#{{ user.id }}</span> 
@@ -22,13 +30,13 @@
              <span>{{ user.email }}</span> 
           </div>
           <div class="icons">
-            <img @click="teste" src="../assets/icons/edit.png" alt="edit"/> 
-            <img @click="teste" src="../assets/icons/delete.png" alt="delete"/> 
-            <img @click="teste" src="../assets/icons/moreDetails.png" alt="more details"/>
+            <img @click="editUser(user.id)" src="../assets/icons/edit.png" alt="edit"/> 
+            <img @click="deleteUser(user.id)" src="../assets/icons/delete.png" alt="delete"/> 
+            <img @click="$router.push('/user/' + user.id)" src="../assets/icons/moreDetails.png" alt="more details"/>
           </div>
            
         </div>
-      
+      </div>
       </div>
 
       
@@ -40,11 +48,15 @@
 
 <script>
 import axios from 'axios';
+import formComponentPost from "@/components/formComponentPost.vue";
+import formComponentPut from "@/components/formComponentPut.vue";
+import buttonComponent from "@/components/buttonComponent.vue";
 
 export default {
   data() {
     return {
       users: [],
+      editingUserId: null,
     }
   },
   mounted() {
@@ -58,19 +70,33 @@ export default {
       });
   },
   methods:{
-    teste(){
-      alert('teste');
-    }
+    editUser(id) {
+      console.log(`editando o user ${id}`);
+      this.editingUserId = id;
+      alert(`você está editando o usuário ${id}`)
+    },
+    deleteUser(id) {
+    axios.delete(`https://reqres.in/api/users/${id}`)
+    .then(response => {
+      console.log(response);
+      alert('usuário deletado com sucesso!');
+    })
+    .catch(error => {
+      console.log(error);
+      alert("erro!");
+    });
+},
+  },
+  components:{
+    formComponentPost,
+    formComponentPut,
+    buttonComponent,
   }
   
 };
 </script>
 
-<script setup>
- import buttonComponentText from './buttonComponentText.vue'
- import buttonComponent from './buttonComponent.vue'
-import formComponent from './formComponent.vue'
-</script>
+
 
 
 
@@ -92,7 +118,7 @@ input {
   height: 55px;
   margin: 0 4px;
   border-radius: 5px;
-  border-width: 1px;
+  border-width: 0;
 }
 
 
@@ -105,39 +131,31 @@ input {
 .mainContainer{
 border: 1px solid black;
 width: 592px;
-height: 660px;
+height: 937px;
 }
-button#cancel{
-height: 55px;
-width: 185px;
-margin-left: 227px;
-border-width: 0;
-
-}
-
-#userSpan{
+#userSpanText{
 font-size: 50px;
 
 }
 
 .cards{
 display: flex;
-height: 400px;
+height: 520px;
 flex-direction: column;
 overflow: scroll;
-
-
+border-radius: 5px;
+margin-top: 40px;
+overflow: scroll;
 }
-.card{
-display: flex;
-max-height: 100%;
-min-width: 586px;
-height: 120px;
-margin-top: 10px;
-margin-left: 4px;
-list-style: none;
-font-family: 'Montserrat', sans-serif;
-
+.userCardInformations{
+  display: flex;
+  max-height: 100%;
+  width: 588px;
+  height: 120px;
+  list-style: none;
+  font-family: 'Montserrat', sans-serif;
+  padding: 20px 30px 20px 30px;
+  
 }
 .card img{
 height: 80px;
@@ -165,13 +183,23 @@ height: 277px;
 }
 
 .top{
-  display: flex;
+display: flex;
 flex-direction: row; 
-align-items: flex-start;
+padding-bottom: 40px;
+justify-content: space-between;
 }
 .labelUser{
   margin-left: 4px;
-  
+}
+.black{
+  width: 4px;
+  height: 20px;
+  background-color: black;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
 }
 
 </style>
