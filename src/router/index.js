@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import newUserView from '../views/newUserView.vue'
-import userDetails from '../views/userDetailsView.vue'
+import Home from '../views/Home.vue'
+import newUser from '../views/newUser.vue'
+import userDetails from '../views/userDetails.vue'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -12,12 +12,12 @@ const router = new VueRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: Home
     },
     {
       path: '/newUser',
       name: 'newUser',
-      component: newUserView
+      component: newUser
     },
     {
       path: '/user/:id',
