@@ -30,9 +30,9 @@
     border-width: 0;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
-    margin-left: auto; /* centralizar o botão na tela */
+    margin-left: auto; 
     margin-right: auto;
-    display: block; /* tornar o botão um elemento de bloco para centralizar */
+    display: block; 
     font-size: 15px;
     }
     </style>
