@@ -1,5 +1,5 @@
 <template>
-    <button id="buttonStyle" :style="{ backgroundColor: buttonColor, color: textColor }">{{ buttonText }}</button>
+    <button id="buttonStyle" :style="{ backgroundColor: buttonColor, color: textColor, marginTop: marginTopValue, marginRight: marginRightValue }">{{ buttonText }}</button>
     </template>
     
     
@@ -8,7 +8,15 @@
            props:{
                buttonText: String,
                buttonColor: String,
-               textColor: String, 
+               textColor: String,
+               marginTopValue: {
+                type: String,
+                default: '0',
+                },
+               marginRightValue: {
+                type: String,
+                default: '0',
+                },
            }
            
        }

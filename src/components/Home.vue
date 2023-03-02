@@ -11,9 +11,12 @@
         </div>
         </div>
 
-        <div class="cards">
+        
+        <div class="cards" >
           <div class="userCard" v-for="user in users" :key="user.id">
+            <div class="black"></div>
             <div class="userCardInformations">
+              
             <img :src="(user.avatar)" :alt="user.first_name" id="cardImg"/>
             <div class="userInformation">
               <span id="userId">#{{ user.id }} </span>
@@ -23,16 +26,28 @@
               <span id="email">{{ user.email }}</span>
             </div>
             <div class="icons">
-              <img @click="$router.push('/newUser')" src="../assets/icons/edit.png" alt="edit" />
+              <img @click="editUser(user.id)" src="../assets/icons/edit.png" alt="edit" />
               <img @click="deleteUser(user.id)" src="../assets/icons/delete.png" alt="delete" />
               <img @click="$router.push('/user/' + user.id)" src="../assets/icons/moreDetails.png" alt="more details" />
             </div>
           </div>
-        </div>
-        </div>
-      </div>
-    </div>
+          
+          
+      
+    
   </div>
+        </div>
+
+
+      </div>
+
+      
+      </div>
+        
+
+      </div>
+   
+  
 </template>
   
   <script>
@@ -72,10 +87,11 @@
       alert("erro!");
     });
 },
-    editUser(id) {
-      this.editingUserId = id // atualiza o valor de editingUserId
-      this.$router.push('/newUser') // redireciona para a página de edição
-    }
+editUser(id) {
+  console.log(`editando o user ${id}`);
+  this.editingUserId = id;
+  this.$router.push({ name: 'newUser', params: { id: id } });
+},
   },
   components:{
     buttonComponent
@@ -90,7 +106,12 @@
 
   
   <style >
- 
+.userContainer{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
 
 .container {
     display: flex;
@@ -166,18 +187,22 @@ justify-content: space-between;
   height: 20px;
   background-color: black;
   display: flex;
-  max-height: 100%;
   flex-direction: column;
+  width: 528px;
+  position: relative;
+  margin-top: 21px;
+ 
+  
 }
 .userCardInformations{
   display: flex;
-  max-height: 100%;
   width: 528px;
   height: 80px;
   list-style: none;
   font-family: 'Montserrat', sans-serif;
   margin: 20px 30px 20px 30px;
   background-color: #F7F7F7;
+  align-items: stretch;
 }
 a{
   text-decoration: none;
@@ -205,6 +230,7 @@ a{
 .userCard{
   display: flex;
   background-color: #F7F7F7;
+  height: auto;
 }
 
 

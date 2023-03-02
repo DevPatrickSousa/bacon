@@ -17,10 +17,9 @@
       <formComponentPut v-if="editingUserId !== null" :userId="editingUserId" />
 
       <div class="cards">
-       
         <div class="card" v-for="user in users" :key="user.id">
+          <div class="black"></div>
           <div class="userCardInformations">
-            
           <img :src="(user.avatar)" :alt="user.first_name">
           <div class="userInformation">
             <span id="userId">#{{ user.id }}</span> 
@@ -37,10 +36,10 @@
            
         </div>
       </div>
-      </div>
+      
 
       
-       
+    </div>   
     </div>
   </div>
 </div>
@@ -79,7 +78,7 @@ export default {
     axios.delete(`https://reqres.in/api/users/${id}`)
     .then(response => {
       console.log(response);
-      alert(`Usuário ${id} deletado com sucesso!`);
+      alert('usuário deletado com sucesso!');
     })
     .catch(error => {
       console.log(error);
@@ -91,7 +90,13 @@ export default {
     formComponentPost,
     formComponentPut,
     buttonComponent,
+  },
+  created() {
+  const id = this.$route.params.id;
+  if (id) {
+    this.editingUserId = id;
   }
+}
   
 };
 </script>
@@ -165,7 +170,9 @@ height: 80px;
 width: 80px;
 }
 .card{
+  display: flex;
   background-color: #F7F7F7;
+  height: auto;
 }
 
 .icons {
@@ -197,9 +204,13 @@ justify-content: space-between;
   margin-left: 4px;
 }
 .black{
-  width: 4px;
+  max-width: 4px;
   height: 20px;
   background-color: black;
+  display: flex;
+  flex-direction: column;
+  width: 528px;
+  position: relative;
 }
 
 .button-container {

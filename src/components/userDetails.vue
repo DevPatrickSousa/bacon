@@ -5,7 +5,7 @@
         <div class="top">
         <span id="userSpanDetails" v-if="user">#{{ user.id }}</span>
         <router-link to="/">
-        <buttonComponent buttonText="Voltar"/>
+        <buttonComponent buttonText="Voltar" marginTopValue="4px" marginRightValue="28px"/>
         </router-link>
       </div>
       <div v-if="user">
